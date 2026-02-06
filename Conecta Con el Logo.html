@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conecta Horizontal</title>
+    <link rel="icon" href="Logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0f3d2e;
+            --primary-medium: #1a5c45;
+            --accent: #4ade80;
+            --white: #ffffff;
+            --gray-light: #f8f9fa;
+            --text-dark: #1f2937;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--white);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- Animaciones --- */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Header & Nav --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 5%;
+            /* Padding reducido */
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: var(--white);
+            /* Fondo sólido para blending perfecto */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo img {
+            height: 80px;
+            /* Logo más pequeño */
+            width: auto;
+            display: block;
+            mix-blend-mode: multiply;
+            /* Mezcla el blanco del logo con el fondo del nav */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-dark);
+        }
+
+        .cta-btn-nav {
+            padding: 0.6rem 1.2rem;
+            background-color: var(--primary-dark);
+            color: var(--white) !important;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        /* --- Slider Infinito de Empresas --- */
+        .logos-slider {
+            padding: 3rem 0;
+            background: var(--white);
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logos-slider-title {
+            text-align: center;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary-dark);
+            margin-bottom: 2rem;
+        }
+
+        .logos-slide-track {
+            display: flex;
+            width: calc(250px * 10);
+            /* Ajustar según cantidad de logos */
+            animation: scroll 40s linear infinite;
+        }
+
+        .slide {
+            width: 250px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .slide img {
+            max-width: 100%;
+            max-height: 50px;
+            filter: grayscale(100%);
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+
+        .slide img:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-250px * 5));
+            }
+        }
+
+        /* --- Servicios --- */
+        .services {
+            padding: 5rem 5%;
+            background-color: var(--gray-light);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--primary-dark);
+            font-size: 2rem;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            border-top: 4px solid var(--primary-dark);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* --- Garantía Legal --- */
+        .legal {
+            padding: 5rem 5%;
+            background-color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .legal-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .legal-text h2 {
+            color: var(--primary-dark);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .legal-features ul {
+            list-style: none;
+        }
+
+        .legal-features li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .legal-features li::before {
+            content: '✓';
+            color: var(--primary-medium);
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .legal-visual {
+            flex: 1;
+            min-width: 300px;
+            height: 300px;
+            background: var(--gray-light);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doc-icon {
+            font-size: 8rem;
+            color: var(--primary-dark);
+            opacity: 0.2;
+        }
+
+        /* --- Hero Section --- */
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #0a291f 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .btn-main {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--white);
+            color: var(--primary-dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 4rem 5% 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+        }
+
+        /* --- Responsive Mobile --- */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            /* Simplificado para landing */
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .legal {
+                flex-direction: column;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">
+            <img src="Logo.png" alt="Conecta Horizontal">
+        </div>
+        <div class="nav-links">
+            <a href="#productos">Productos y Servicios</a>
+            <a href="#garantia">Legalidad</a>
+            <a href="#contacto" class="cta-btn-nav">Cotizar</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="hero-content">
+            <h1>Decisiones Claras,<br>Votaciones Seguras</h1>
+            <p class="hero-subtitle">La solución de votación electrónica presencial para Conjunto Residenciales y
+                Centros Comerciales.</p>
+            <a href="https://wa.me/573044700752?text=Hola%20Conecta%20Horizontal,%20quisiera%20iniciar%20una%20votación"
+                class="btn-main" target="_blank">Iniciar una Votación</a>
+        </div>
+    </header>
+
+
+    <!-- Sección de Productos y Servicios (Expandida) -->
+    <section id="productos" style="padding: 4rem 5%; background-color: var(--white);">
+        <h2 class="section-title animate-on-scroll">Nuestros Productos y Servicios</h2>
+
+        <!-- Software de Votación -->
+        <div class="product-category animate-on-scroll" style="margin-bottom: 4rem;">
+            <h3
+                style="color: var(--primary-dark); font-size: 1.8rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--accent); display: inline-block;">
+                Software de Votación Conecta Horizontal</h3>
+            <p style="margin-bottom: 2rem;">La solución integral para modernizar sus asambleas con tecnología legal y
+                transparente.</p>
+
+            <div class="cards-container">
+                <div class="card" style="border-top: 4px solid var(--accent);">
+                    <h4>Votaciones Instantáneas por WhatsApp</h4>
+                    <p>Elimina filas y conteos manuales. Votación segura desde la app que todos usan. Resultados en
+                        segundos y registro auditable.</p>
+                </div>
+                <div class="card" style="border-top: 4px solid var(--accent);">
+                    <h4>Control de Quórum en Tiempo Real</h4>
+                    <p>Monitoreo constante de asistencia en pantalla. Cálculo automático del quórum legal para deliberar
+                        y decidir.</p>
+                </div>
+                <div class="card" style="border-top: 4px solid var(--accent);">
+                    <h4>Coeficientes Ponderados</h4>
+                    <p>Cálculo automático de votos según coeficientes y gestión precisa de poderes cedidos sin errores
+                        humanos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Equipos Audiovisuales -->
+        <div class="product-category animate-on-scroll" style="margin-bottom: 4rem;">
+            <h3
+                style="color: var(--primary-dark); font-size: 1.8rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--primary-medium); display: inline-block;">
+                Equipos Audiovisuales</h3>
+            <div class="cards-container">
+                <div class="card" style="border-top: 4px solid var(--primary-medium);">
+                    <h4>Video Proyectores Epson</h4>
+                    <p>Tecnología 3LCD (Línea Business) para colores brillantes y nitidez excepcional, ideal para
+                        espacios iluminados.</p>
+                </div>
+                <div class="card" style="border-top: 4px solid var(--primary-medium);">
+                    <h4>Telones de Proyección</h4>
+                    <p>Pantallas de alta ganancia que aseguran una visualización perfecta desde cualquier ángulo del
+                        salón.</p>
+                </div>
+                <div class="card" style="border-top: 4px solid var(--primary-medium);">
+                    <h4>Sonido Profesional</h4>
+                    <p>Potentes cabinas de 15" y hasta 4 micrófonos inalámbricos de señal estable para garantizar un
+                        audio impecable.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Servicios Adicionales -->
+        <div class="product-category animate-on-scroll">
+            <h3
+                style="color: var(--primary-dark); font-size: 1.8rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--primary-dark); display: inline-block;">
+                Servicios Adicionales</h3>
+            <div class="cards-container">
+                <div class="card" style="border-top: 4px solid var(--primary-dark);">
+                    <h4>Grabación y Transcripción</h4>
+                    <p>Grabación de audio de alta fidelidad y transcripción detallada y fiel de todo lo ocurrido en la
+                        asamblea.</p>
+                </div>
+                <div class="card" style="border-top: 4px solid var(--primary-dark);">
+                    <h4>Redacción de Actas</h4>
+                    <p>Elaboramos el proyecto de acta listo para revisión, ahorrándote horas de valioso trabajo
+                        administrativo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Empresas (Comentada temporalmente)
+    <div class="logos-slider">
+        <p class="logos-slider-title">Empresas que confían en nosotros</p>
+        <div class="logos-slide-track">
+            <div class="slide"><small>Logo Cliente 1</small></div>
+            <div class="slide"><small>Logo Cliente 2</small></div>
+            <div class="slide"><small>Logo Cliente 3</small></div>
+            <div class="slide"><small>Logo Cliente 4</small></div>
+            <div class="slide"><small>Logo Cliente 5</small></div>
+            <div class="slide"><small>Logo Cliente 1</small></div>
+            <div class="slide"><small>Logo Cliente 2</small></div>
+            <div class="slide"><small>Logo Cliente 3</small></div>
+            <div class="slide"><small>Logo Cliente 4</small></div>
+            <div class="slide"><small>Logo Cliente 5</small></div>
+        </div>
+    </div>
+    -->
+
+    <section id="servicios" class="services">
+        <h2 class="section-title animate-on-scroll">Nuestras Soluciones</h2>
+        <div class="cards-container">
+            <div class="card animate-on-scroll">
+                <h3>Conjuntos Residenciales</h3>
+                <p>Asambleas ágiles para copropietarios con registro de quórum en tiempo real.</p>
+            </div>
+            <div class="card animate-on-scroll">
+                <h3>Centros Comerciales</h3>
+                <p>Sistemas robustos para manejo de coeficientes complejos y múltiples representantes.</p>
+            </div>
+            <div class="card animate-on-scroll">
+                <h3>Sector Empresarial</h3>
+                <p>Seguridad de datos y privacidad garantizada para juntas directivas.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="garantia" class="legal">
+        <div class="legal-visual animate-on-scroll"
+            style="background-image: url('https://images.unsplash.com/photo-1589994965851-a8f479c573a9?auto=format&fit=crop&q=80&w=1000'); background-size: cover; background-position: center;">
+            <!-- Imagen de fondo reemplaza el icono -->
+        </div>
+        <div class="legal-text animate-on-scroll">
+            <h2>100% Legal y Transparente</h2>
+            <p>Sabemos que la validez jurídica es lo más importante. Nuestro sistema no solo cuenta votos, genera la
+                documentación necesaria para blindar su asamblea.</p>
+            <br>
+            <ul class="legal-features">
+                <li>Informe suplementario para la generación de Actas</li>
+                <li>Validación de identidad</li>
+                <li>Auditoría de resultados en tiempo real</li>
+                <li>Cumplimiento con la Ley 675 de 2001</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <div class="footer-content animate-on-scroll">
+            <span class="footer-logo">CONECTA HORIZONTAL</span>
+            <p>Modernizando la toma de decisiones en la propiedad horizontal.</p>
+            <br>
+            <a href="https://wa.me/573044700752?text=Hola%20Conecta%20Horizontal,%20quisiera%20más%20información"
+                class="btn-main" target="_blank"
+                style="background: transparent; border: 2px solid white; color: white;">Contáctanos</a>
+        </div>
+        <div class="copyright">
+            &copy; 2026 Conecta Horizontal. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script>
+        // Simple Intersection Observer para animaciones al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+
+</body>
+
+</html>
