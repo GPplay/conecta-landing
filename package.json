@@ -1,0 +1,12 @@
+{
+  "name": "conecta-landing",
+  "version": "1.0.0",
+  "description": "Landing page de Conecta Horizontal",
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "cheerio": "^1.0.0"
+  }
+}

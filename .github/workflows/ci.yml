@@ -1,0 +1,40 @@
+name: 🚦 CI — Validación de Landing
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+      - 'fix/**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validar-landing:
+    name: Validar HTML y SEO
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: 🟢 Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📦 Instalar dependencias
+        run: npm ci
+
+      - name: 🧪 Ejecutar tests de la landing
+        run: npm test
+
+      - name: ✅ Tests completados
+        if: success()
+        run: echo "La landing pasó todas las validaciones correctamente."
+
+      - name: ❌ Falló la validación
+        if: failure()
+        run: echo "La landing tiene errores. Revisar el reporte de tests."

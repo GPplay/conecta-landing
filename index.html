@@ -4,8 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conecta Horizontal</title>
+    <title>Conecta Horizontal | Votación Electrónica para Propiedad Horizontal</title>
+    <meta name="description"
+        content="Votación electrónica presencial para conjuntos residenciales y centros comerciales. Legal, ágil y transparente. Cumple con la Ley 675 de 2001.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://conectahorizontal.com/">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Conecta Horizontal | Votación Electrónica para Propiedad Horizontal">
+    <meta property="og:description"
+        content="Solución de votación electrónica presencial para conjuntos residenciales y centros comerciales. Legal y transparente.">
+    <meta property="og:image" content="https://conectahorizontal.com/Logo.png">
+    <meta property="og:url" content="https://conectahorizontal.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_CO">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Conecta Horizontal | Votación Electrónica para Propiedad Horizontal">
+    <meta name="twitter:description"
+        content="Votaciones electrónicas legales para asambleas de copropietarios y centros comerciales.">
+    <meta name="twitter:image" content="https://conectahorizontal.com/Logo.png">
+
     <link rel="icon" href="Logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -364,7 +387,7 @@
 
     <nav>
         <div class="logo">
-            <img src="Logo.png" alt="Conecta Horizontal">
+            <img src="Logo.png" alt="Conecta Horizontal" width="120" height="45">
         </div>
         <div class="nav-links">
             <a href="#productos">Productos y Servicios</a>
@@ -379,7 +402,7 @@
             <p class="hero-subtitle">La solución de votación electrónica presencial para Conjunto Residenciales y
                 Centros Comerciales.</p>
             <a href="https://wa.me/573044700752?text=Hola%20Conecta%20Horizontal,%20quisiera%20iniciar%20una%20votación"
-                class="btn-main" target="_blank">Iniciar una Votación</a>
+                class="btn-main" target="_blank" rel="noopener noreferrer">Iniciar una Votación</a>
         </div>
     </header>
 
@@ -520,7 +543,7 @@
             <p>Modernizando la toma de decisiones en la propiedad horizontal.</p>
             <br>
             <a href="https://wa.me/573044700752?text=Hola%20Conecta%20Horizontal,%20quisiera%20más%20información"
-                class="btn-main" target="_blank"
+                class="btn-main" target="_blank" rel="noopener noreferrer"
                 style="background: transparent; border: 2px solid white; color: white;">Contáctanos</a>
         </div>
         <div class="copyright">
@@ -541,7 +564,26 @@
         document.querySelectorAll('.animate-on-scroll').forEach((el) => {
             observer.observe(el);
         });
-        //ola
+    </script>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Conecta Horizontal",
+      "description": "Solución de votación electrónica presencial para conjuntos residenciales y centros comerciales. Legal, ágil y transparente.",
+      "url": "https://conectahorizontal.com",
+      "logo": "https://conectahorizontal.com/Logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+573044700752",
+        "contactType": "customer service",
+        "availableLanguage": "Spanish"
+      },
+      "areaServed": "CO",
+      "serviceType": "Votación electrónica para propiedad horizontal"
+    }
     </script>
 
 </body>
